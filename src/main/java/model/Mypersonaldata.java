@@ -3,11 +3,8 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.eclipse.persistence.annotations.PrimaryKey;
-
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 
 /**
@@ -17,13 +14,15 @@ import lombok.Setter;
 
 @Data
 @Entity
+@Table(name="Mypersonaldata")
 @NamedQuery(name="Mypersonaldata.findAll", query="SELECT m FROM Mypersonaldata m")
 public class Mypersonaldata implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
+	@SequenceGenerator(name = "id_seq", sequenceName="mypersonadata_id", allocationSize = 1)
 	private Integer id;
 
 	@Column
@@ -50,4 +49,5 @@ public class Mypersonaldata implements Serializable {
 		return "MyPersonanData [id=" + id + ", name=" + name 
 				+ ", mail=" + mail + ",age=" + age + "]";
 	}
+	
 }
